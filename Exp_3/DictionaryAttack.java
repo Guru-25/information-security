@@ -3,6 +3,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.Duration;
+import java.time.Instant;
 
 public class DictionaryAttack {
     private static final String CHAR_SET = "0123456789abcdefghijklmnopqrstuvwxyz";
@@ -49,8 +53,18 @@ public class DictionaryAttack {
     //  Generates words of lengths 2, 3, and 4.
     private static void createDictionary() {
         dictionary.clear();
-        for (int length = 2; length <= 4; length++) {
-            generateWords("", length);
+        try (FileWriter writer = new FileWriter("dictionary_generation_times.txt")) {
+            for (int length = 2; length <= 4; length++) {
+                Instant start = Instant.now();
+                generateWords("", length);
+                Instant end = Instant.now();
+                long timeElapsed = Duration.between(start, end).toMillis();
+                writer.write(length + "," + timeElapsed + "\n");
+                System.out.println("Length " + length + " words generated in " + timeElapsed + " ms");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file.");
+            e.printStackTrace();
         }
         System.out.println("Dictionary created with " + dictionary.size() + " words.");
     }
