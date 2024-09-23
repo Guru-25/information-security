@@ -197,7 +197,7 @@ public class HillCipher {
                 case 1:
                     System.out.print("Enter key size (n): ");
                     keySize = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline
+                    // scanner.nextLine(); // Consume newline
                     key = new int[keySize][keySize];
                     System.out.println("Enter key matrix elements:");
                     for (int i = 0; i < keySize; i++) {

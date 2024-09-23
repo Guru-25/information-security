@@ -54,7 +54,9 @@ class CaesarCipher {
         }
         
         List<Map.Entry<Character, Integer>> sortedFreq = new ArrayList<>(freqMap.entrySet());
-        sortedFreq.sort((a, b) -> b.getValue().compareTo(a.getValue()));
+        sortedFreq.sort(
+            (a, b) -> b.getValue().compareTo(a.getValue())
+        );
         
         char mostFrequentChar = sortedFreq.get(0).getKey();
         System.out.println("Most frequent character in cipher text: " + mostFrequentChar);
