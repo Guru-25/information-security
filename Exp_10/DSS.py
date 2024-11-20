@@ -55,7 +55,9 @@ def compute_u2(r, w, q):
 # Method to compute v = ((g^u1 * y^u2) mod p) mod q
 def compute_verification_value(p, q, g, y, u1, u2):
     ans = pow(g, u1, p)
-    ans1 = pow(y, u2, p)
+    print("Computed value of G^U1:", ans)
+    ans1 = pow(y, u2, p)  
+    print("Computed value of Y^U2:", ans1)
     v = ((ans * ans1) % p) % q
     print("Computed verification value (V):", v)
     return v
