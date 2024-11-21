@@ -1,3 +1,5 @@
+import hashlib
+
 # Function to calculate the modular inverse using the Extended Euclidean Algorithm
 def modinv(a, q):
     t, new_t = 0, 1
@@ -34,41 +36,7 @@ def compute_signature_s(k, hm, x, r, q):
     print("Generated signature component (S):", s)
     return s
 
-# Method to compute w = s^-1 mod q
-def compute_inverse_s(s, q):
-    w = modinv(s, q)  # s^-1 mod q using our own modinv function
-    print("Computed inverse of S (W):", w)
-    return w
-
-# Method to compute u1 = (H(m) * w) mod q
-def compute_u1(hm, w, q):
-    u1 = (hm * w) % q
-    print("Calculated U1 (intermediate value):", u1)
-    return u1
-
-# Method to compute u2 = (r * w) mod q
-def compute_u2(r, w, q):
-    u2 = (r * w) % q
-    print("Calculated U2 (intermediate value):", u2)
-    return u2
-
-# Method to compute v = ((g^u1 * y^u2) mod p) mod q
-def compute_verification_value(p, q, g, y, u1, u2):
-    ans = pow(g, u1, p)
-    print("Computed value of G^U1:", ans)
-    ans1 = pow(y, u2, p)  
-    print("Computed value of Y^U2:", ans1)
-    v = ((ans * ans1) % p) % q
-    print("Computed verification value (V):", v)
-    return v
-
-# Signature verification method
-def verify_signature(r, v):
-    if r == v:
-        print("Signature successfully verified.")
-    else:
-        print("Signature verification failed.")
-
+# Function to hash the file content
 def hash_file(file_path):
     hash_func = hashlib.sha256()  # You can change the hashing algorithm if needed
     with open(file_path, "rb") as file:
@@ -92,23 +60,16 @@ def sign_file(file_path, p, q, g, x, k):
 # Input parameters from user
 p = int(input("P value: "))
 q = int(input("Q value: "))
-hm = int(input("Hash of the message (H(M)): "))
 g = int(input("G value: "))
 x = int(input("Private key (X): "))
 k = int(input("Random value (K): "))
+file_path = input("Enter file path: ")
 
 # Compute public key
 y = compute_public_key(x, p, g)
 
-# Compute signature components
-r = compute_signature_r(k, p, q, g)
-s = compute_signature_s(k, hm, x, r, q)
-
-# Compute intermediate values
-w = compute_inverse_s(s, q)
-u1 = compute_u1(hm, w, q)
-u2 = compute_u2(r, w, q)
-
-# Compute verification value and verify signature
-v = compute_verification_value(p, q, g, y, u1, u2)
-verify_signature(r, v)
+# Sign the file and output the signature
+r, s = sign_file(file_path, p, q, g, x, k)
+print(f"Signature for the file:")
+print(f"R: {r}")
+print(f"S: {s}")

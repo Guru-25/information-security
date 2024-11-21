@@ -63,8 +63,9 @@ def find_mat_mul(mat_a, mat_b):
 
 def remove_copy_matrix(mat, i, j):
     """Remove row i and column j from matrix."""
-    return [[mat[row][col] for col in range(len(mat)) if col != j]
-            for row in range(len(mat)) if row != i]
+    # return [[mat[row][col] for col in range(len(mat)) if col != j]
+    #         for row in range(len(mat)) if row != i]
+    return [row[:j] + row[j + 1:] for row in (mat[:i] + mat[i + 1:])]
 
 def check_square_matrix(mat):
     """Check if matrix is square."""

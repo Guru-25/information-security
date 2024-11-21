@@ -7,7 +7,7 @@ public class Client {
     private static final int BIT_LENGTH = 512; // Bit length for the private key
 
     public static void main(String[] args) {
-        try (Socket socket = new Socket("localhost", 5000)) {
+        try (Socket socket = new Socket("localhost", 6000)) {
             DataInputStream input = new DataInputStream(socket.getInputStream());
             DataOutputStream output = new DataOutputStream(socket.getOutputStream());
 

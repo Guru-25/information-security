@@ -75,40 +75,40 @@ def main():
         print("4 for Frequency Analysis Attack")
         print("5 for Exit")
         
-        try:
-            choice = input("Enter an option: ")
+        # try:
+        choice = input("Enter an option: ")
+        
+        if choice == "1":
+            plain_text = input("Enter a plain text: ")
+            shift_key = int(input("Enter the shift key: "))
+            cipher_text = encrypt(plain_text, shift_key)
+            print(f"Encrypted text: {cipher_text}")
             
-            if choice == "1":
-                plain_text = input("Enter a plain text: ")
-                shift_key = int(input("Enter the shift key: "))
-                cipher_text = encrypt(plain_text, shift_key)
-                print(f"Encrypted text: {cipher_text}")
+        elif choice == "2":
+            cipher_text = input("Enter a cipher text: ")
+            shift_key = int(input("Enter the shift key: "))
+            plain_text = decrypt(cipher_text, shift_key)
+            print(f"Decrypted text: {plain_text}")
+            
+        elif choice == "3":
+            cipher_text = input("Enter a cipher text: ")
+            brute_force_attack(cipher_text)
+            
+        elif choice == "4":
+            cipher_text = input("Enter a cipher text: ")
+            frequency_analysis_attack(cipher_text)
+            
+        elif choice == "5":
+            print("Exiting...")
+            break
+            
+        else:
+            print("Invalid option")
                 
-            elif choice == "2":
-                cipher_text = input("Enter a cipher text: ")
-                shift_key = int(input("Enter the shift key: "))
-                plain_text = decrypt(cipher_text, shift_key)
-                print(f"Decrypted text: {plain_text}")
-                
-            elif choice == "3":
-                cipher_text = input("Enter a cipher text: ")
-                brute_force_attack(cipher_text)
-                
-            elif choice == "4":
-                cipher_text = input("Enter a cipher text: ")
-                frequency_analysis_attack(cipher_text)
-                
-            elif choice == "5":
-                print("Exiting...")
-                break
-                
-            else:
-                print("Invalid option")
-                
-        except ValueError as e:
-            print(f"Invalid input: {e}")
-        except Exception as e:
-            print(f"An error occurred: {e}")
+        # except ValueError as e:
+        #     print(f"Invalid input: {e}")
+        # except Exception as e:
+        #     print(f"An error occurred: {e}")
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+main()
